@@ -1,0 +1,28 @@
+.Sidebar {
+    width: 30%;
+    height: 100vh;
+    border-right: 1.5px solid #DEDCDA;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.new-note {
+    background: none;
+    color: rgb(19, 117, 170);
+    border: none;
+    font-size: 20px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.new-note:hover {
+    color: rgb(28, 165, 239);
+}
