@@ -1,32 +1,36 @@
 import './App.css';
 import Sidebar from './components/Sidebar/Sidebar.js';
 import Editor from './components/Editor/Editor.js';
+import React, { useEffect, useState, useReducer } from 'react';
+import notesReducer from './state/notes-reducer';
 import uuid from "react-uuid";
-import React, { useEffect, useState } from 'react';
 
 function App() {
-  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
+  const [notes, dispatch] = useReducer(notesReducer, JSON.parse(localStorage.getItem('notes')) || []);
   const [activeNote, setActiveNote] = useState(false);
 
-  // test
   function onAddNote() {
     const id = uuid()
-    setNotes(prevNotes => {
-      return [...prevNotes, {
-          'id': id,
-          'title': 'New note',
-          'content': 'Enter content',
-          'lastModified': Date.now()
-      }]
-    })
+    dispatch({
+      type: 'added',
+      id: id
+    });
     setActiveNote(id)
   }
 
   function onDeleteNote(id) {
-    setNotes(prevNotes => {
-      return prevNotes.filter(note => note.id !== id)
-    })
+    dispatch({
+      type: 'deleted',
+      id: id,
+    });
     setActiveNote(false)
+  }
+
+  function onUpdateNote(note) {
+    dispatch({
+      type: 'changed',
+      note: note
+    });
   }
 
   useEffect(() => 
@@ -37,7 +41,7 @@ function App() {
   return (
     <div className="App">
       <Sidebar onAddNote={onAddNote} notes={notes} activeNote={activeNote} setActiveNote={setActiveNote} onDeleteNote={onDeleteNote} />
-      <Editor activeNote={activeNote} notes={notes} setNotes={setNotes} />
+      <Editor activeNote={activeNote} notes={notes} onUpdateNote={onUpdateNote} />
     </div>
   );
 }
