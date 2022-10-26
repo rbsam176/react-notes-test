@@ -21,16 +21,17 @@ function App() {
     setActiveNote(id)
   }
 
-  useEffect(() => 
-    localStorage.setItem('notes', JSON.stringify(notes))
-  , [notes])
-
   function onDeleteNote(id) {
     setNotes(prevNotes => {
       return prevNotes.filter(note => note.id !== id)
     })
     setActiveNote(false)
   }
+
+  useEffect(() => 
+    localStorage.setItem('notes', JSON.stringify(notes))
+  , [notes])
+
 
   return (
     <div className="App">

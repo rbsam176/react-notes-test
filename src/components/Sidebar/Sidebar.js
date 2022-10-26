@@ -2,7 +2,6 @@ import './Sidebar.css';
 import ListItem from './ListItem.js';
 
 export default function Sidebar(props) {
-
   return (
     <div className="Sidebar">
         <header>
