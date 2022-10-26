@@ -8,6 +8,7 @@ function App() {
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || []);
   const [activeNote, setActiveNote] = useState(false);
 
+  // test
   function onAddNote() {
     const id = uuid()
     setNotes(prevNotes => {
